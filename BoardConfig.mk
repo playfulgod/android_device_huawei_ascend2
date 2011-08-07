@@ -5,7 +5,7 @@ USE_CAMERA_STUB := true
 
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := msm7k
-TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI := armeabi-v6j
 TARGET_BOOTLOADER_BOARD_NAME := M865
 
 TARGET_NO_KERNEL := false
@@ -17,7 +17,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recover
 
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
-BOARD_PAGE_SIZE := 4096
+BOARD_PAGE_SIZE := 131072
 
 ## cat /proc/mtd
 # dev:    size   erasesize  name
