@@ -12,6 +12,10 @@ TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
+## Recovery
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
+BOARD_USES_MMCUTILS := true
+
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 4096
@@ -35,12 +39,9 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0ba00000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0a0a0000
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-TARGET_PREBUILT_KERNEL := device/huawei/ascend2/kernel
-
 # USB
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
-#BOARD_HAS_NO_SELECT_BUTTON := true
-# Use this flag if the board has a ext4 partition larger than 2gb
-#BOARD_HAS_LARGE_FILESYSTEM := true
+TARGET_PREBUILT_KERNEL := device/huawei/ascend2/kernel
+
