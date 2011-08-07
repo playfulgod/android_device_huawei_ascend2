@@ -14,7 +14,6 @@ TARGET_NO_RADIOIMAGE := true
 
 ## Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
-BOARD_USES_MMCUTILS := true
 
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
