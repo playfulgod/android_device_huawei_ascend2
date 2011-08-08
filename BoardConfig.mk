@@ -12,9 +12,6 @@ TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
-## Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
-
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 131072
