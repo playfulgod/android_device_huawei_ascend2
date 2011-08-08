@@ -16,6 +16,9 @@ BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 131072
 
+# Recovery
+BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
+
 ## cat /proc/mtd
 # dev:    size   erasesize  name
 # mtd0: 00500000 00020000 "boot"
