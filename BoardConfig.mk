@@ -18,6 +18,7 @@ BOARD_PAGE_SIZE := 131072
 
 # Recovery
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
+BOARD_HAS_NO_SELECT_BUTTON := true
 
 ## cat /proc/mtd
 # dev:    size   erasesize  name
