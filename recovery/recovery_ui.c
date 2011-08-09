@@ -12,6 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+<<<<<<< HEAD
  * Power(hard):116
  * Volume +(hard):115
  * Volume -(hard):114
@@ -19,6 +20,8 @@
  * Menu(touch):330/139
  * Back(touch):330/158
  * Search(touch):330/217
+=======
+>>>>>>> 5840f957d00f4c499e732572311b2411b1cc0a00
  */
 
 #include <linux/input.h>
@@ -71,9 +74,12 @@ int device_handle_key(int key_code, int visible) {
             case 115:
                 return HIGHLIGHT_UP;
 
+<<<<<<< HEAD
             case 116:
                 return SELECT_ITEM;
         
+=======
+>>>>>>> 5840f957d00f4c499e732572311b2411b1cc0a00
             case 139:
                 return SELECT_ITEM;
 
