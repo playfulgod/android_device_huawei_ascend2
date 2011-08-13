@@ -1,3 +1,17 @@
 #
 # system.prop for ascend2
 #
+
+rild.libpath=/system/lib/libril-qc-1.so
+rild.libargs=-d /dev/smd0
+DEVICE_PROVISIONED=1
+
+# The interfaces to get DNS data from when using mobile data
+# Comma-separated
+mobiledata.interfaces=rmnet0,rmnet1,rmnet2
+
+# Allow or deny tethering.
+ro.tether.denied=false
+
+# Disable fs check on boot by default.
+sys.checkfs.fat=false

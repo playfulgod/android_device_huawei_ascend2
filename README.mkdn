@@ -1,0 +1,70 @@
+HOW-TO BUILD:
+=============
+
+**This short guide assumes you're on Ubuntu 11.04**
+
+Getting the (right) source
+--------------------------
+
+First, we need to create directories for the build:
+
+    $ mkdir -p ~/bin
+
+    $ mkdir -p ~/android/system
+
+Now we'll need repo. Let's download it and make it executable:
+
+    $ curl http://android.git.kernel.org/repo > ~/bin/repo
+    
+    $ chmod a+x ~/bin/repo
+
+Log out and back in so the changes take effect.
+
+Now initialized the repository and pull the source (with my repos attached):
+
+    $ cd ~/android/system/
+    
+    $ repo init -u git://github.com/playfulgod/android.git -b gingerbread
+    
+    $ repo sync -j16
+
+Depending on your connection, this might take awhile.
+
+Extract necessary binaries and proprietary files
+------------------------------------------------
+
+We will need to reuse some proprietary files from the stock ROM:
+
+    $ cd
+    
+    $ cd ~/android/system/device/huawei/ascend2/
+    
+    $ ./extract-files.sh
+
+Building CM7
+-------------
+Once thats done you can start compiling.
+
+Follow the aosp instructions on setting up the build environment. - http://source.android.com/source/download.html
+
+When the environment is setup, we need to grab a copy of Koush's ROM Manager. This is necessary to build CM7.
+
+    $ cd
+    
+    $ ~/android/system/vendor/cyanogen/get-rommanager
+
+Now, we build:
+
+    $ cd ~/android/system
+    
+    $ . build/envsetup.sh && brunch ascend2
+
+Installing CM7
+---------------
+If the build was successful, you can now take the update zip found in out/target/product/ascend2/ and flash using a custom recovery. Make sure to grab the latest Gapps to complete the experience.
+
+When you want to rebuild with new changes or after syncing to the latest CM src make sure to do the following before you recompile.
+
+make clean clobber
+
+
