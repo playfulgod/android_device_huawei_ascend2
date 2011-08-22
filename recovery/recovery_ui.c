@@ -19,7 +19,7 @@
  * Menu(touch):330/139
  * Back(touch):330/158
  * Search(touch):330/217
-
+*/
 
 #include <linux/input.h>
 
