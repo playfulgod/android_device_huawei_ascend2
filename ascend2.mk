@@ -54,36 +54,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/etc/vold.fstab:system/etc/vold.fstab
 
-# Compcache module
-#PRODUCT_COPY_FILES += \
-#    device/huawei/ascend2/modules/ramzswap.ko:system/lib/modules/ramzswap.ko
-
-# Input
-PRODUCT_COPY_FILES += \
-	device/huawei/ascend2/modules/evbug.ko:system/lib/modules/evbug.ko
-
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
-    device/huawei/ascend2/init.qcom.rc:root/init.qcom.rc \
-    device/huawei/ascend2/include/ueventd.ascend2.rc:root/ueventd.ascend2.rc \
+    device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc
 
 # DHCP config for wifi
 PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd.conf \
-    vendor/huawei/ascend2/proprietary/etc/dhcpcd/dhcpcd-hooks:system/etc/dhcpcd/dhcpcd-hooks \
-    vendor/huawei/ascend2/proprietary/etc/dhcpcd/dhcpcd-run-hooks:system/etc/dhcpcd/dhcpcd-run-hooks
-
-# qcom stuff
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/01_qcomm_omx.cfg:system/etc/01_qcomm_omx.cfg \
-    vendor/huawei/ascend2/proprietary/etc/init.goldfish.sh:system/etc/init.goldfish.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.coex.sh:system/etc/init.qcom.coex.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
-    vendor/huawei/ascend2/proprietary/etc/iq.img.vfat:system/etc/iq.img.vfat 
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
@@ -106,9 +84,8 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/base/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-    vendor/huawei/ascend2/proprietary/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml \
-    vendor/huawei/ascend2/proprietary/etc/permissions/qcnvitems.xml:system/etc/permissions/qcnvitems.xml \
-    vendor/huawei/ascend2/proprietary/etc/permissions/qcrilhook.xml:system/etc/permissions/qcrilhook.xml
+    vendor/huawei/ascend2/proprietary/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml 
+
 
 # 3D
 PRODUCT_COPY_FILES += \
@@ -121,6 +98,8 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/lib/libgsl.so:system/lib/libgsl.so \
     vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
     vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw 
+
+PRODUCT_LOCALES += mdpi
 
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=eth0 \
@@ -159,12 +138,10 @@ PRODUCT_COPY_FILES += \
 
 # Proprietary hardware related
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/libcamera.so:obj/lib/libcamera.so \
-    vendor/huawei/ascend2/proprietary/lib/libcamera.so:system/lib/libcamera.so \
+    vendor/huawei/ascend2/proprietary/lib/liboemcamera.so:system/lib/liboemcamera.so \
     vendor/huawei/ascend2/proprietary/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
-    vendor/huawei/ascend2/proprietary/lib/libmmipl.so:system/lib/libmmipl.so \
-    vendor/huawei/ascend2/proprietary/lib/libmmprocess.so:system/lib/libmmprocess.so \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    vendor/huawei/ascend2/proprietary/lib/libmmipl.so:system/lib/libmmipl.so
+
 
 # Sound and OMX
 PRODUCT_COPY_FILES += \
@@ -182,44 +159,47 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/bin/akmd8962:system/bin/akmd8962 \
     vendor/huawei/ascend2/proprietary/bin/akmd8975:system/bin/akmd8975 \
     vendor/huawei/ascend2/proprietary/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
 
 # GPS
 PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/etc/gps.conf:system/etc/gps.conf \
+    vendor/huawei/ascend2/proprietary/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
+    vendor/huawei/ascend2/proprietary/system/lib/libloc_api.so:system/lib/libloc_api.so \
+    vendor/huawei/ascend2/proprietary/system/lib/libgps.so:system/lib/libgps.so \
+    vendor/huawei/ascend2/proprietary/system/lib/libloc.so:system/lib/libloc.so \
+    vendor/huawei/ascend2/proprietary/system/lib/libloc.so:obj/lib/libloc.so \
+    vendor/huawei/ascend2/proprietary/system/lib/libcommondefs.so:system/lib/libcommondefs.so \
+    vendor/huawei/ascend2/proprietary/system/lib/libloc-rpc.so:system/lib/libloc-rpc.so 
 
 # Proprietary RIL related
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/libauth.so:system/lib/libauth.so \
     vendor/huawei/ascend2/proprietary/lib/libril-qc-1.so:system/lib/libril-qc-1.so \
-    vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
     vendor/huawei/ascend2/proprietary/lib/liboncrpc.so:system/lib/liboncrpc.so \
     vendor/huawei/ascend2/proprietary/lib/libdsm.so:system/lib/libdsm.so \
     vendor/huawei/ascend2/proprietary/lib/libqueue.so:system/lib/libqueue.so \
-    vendor/huawei/ascend2/proprietary/lib/libcm.so:system/lib/libcm.so \
     vendor/huawei/ascend2/proprietary/lib/libdiag.so:system/lib/libdiag.so \
+    vendor/huawei/ascend2/proprietary/lib/libauth.so:system/lib/libauth.so \
+    vendor/huawei/ascend2/proprietary/lib/libcm.so:system/lib/libcm.so \
+    vendor/huawei/ascend2/proprietary/lib/libnv.so:system/lib/libnv.so \
+    vendor/huawei/ascend2/proprietary/lib/libpbmlib.so:system/lib/libpbmlib.so \
+    vendor/huawei/ascend2/proprietary/lib/libwms.so:system/lib/libwms.so \
+    vendor/huawei/ascend2/proprietary/lib/libwmsts.so:system/lib/libwmsts.so \
     vendor/huawei/ascend2/proprietary/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \
     vendor/huawei/ascend2/proprietary/lib/libgsdi_exp.so:system/lib/libgsdi_exp.so \
     vendor/huawei/ascend2/proprietary/lib/libgstk_exp.so:system/lib/libgstk_exp.so \
-    vendor/huawei/ascend2/proprietary/lib/libwms.so:system/lib/libwms.so \
-    vendor/huawei/ascend2/proprietary/lib/libnv.so:system/lib/libnv.so \
-    vendor/huawei/ascend2/proprietary/lib/libwmsts.so:system/lib/libwmsts.so \
     vendor/huawei/ascend2/proprietary/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \
-    vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
-    vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \
+    vendor/huawei/ascend2/proprietary/lib/liboem_rapi.so:system/lib/liboem_rapi.so \
+    vendor/huawei/ascend2/proprietary/lib/libsnd.so:system/lib/libsnd.so \
     vendor/huawei/ascend2/proprietary/lib/libqmi.so:system/lib/libqmi.so \
-    vendor/huawei/ascend2/proprietary/lib/libpbmlib.so:system/lib/libpbmlib.so \
-    vendor/huawei/ascend2/proprietary/lib/libwpa_client.so:system/lib/libwpa_client.so \
-    vendor/huawei/ascend2/proprietary/bin/qmuxd:system/bin/qmuxd \
+    vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \
+    vendor/huawei/ascend2/proprietary/lib/liblgerft.so:system/lib/liblgerft.so \
+    vendor/huawei/ascend2/proprietary/lib/libbcmwl.so:system/lib/libbcmwl.so \
+    vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
+    vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
+    vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild
 
-# OEM RPC
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/bin/modempre:system/bin/modempre \
-    vendor/huawei/ascend2/proprietary/bin/oem_rpc_svc:system/bin/oem_rpc_svc \
-    vendor/huawei/ascend2/proprietary/lib/libhwrpc.so:system/lib/libhwrpc.so \
-    vendor/huawei/ascend2/proprietary/lib/liboem_rapi.so:system/lib/liboem_rapi.so
 
 ## Wifi related
 PRODUCT_COPY_FILES += \
@@ -229,10 +209,8 @@ PRODUCT_COPY_FILES += \
 
 ## Bluetooth related
 PRODUCT_COPY_FILES += \
-     vendor/huawei/ascend2/proprietary/etc/bluetooth/audio.conf:system/etc/bluetooth/audio.conf \
-     vendor/huawei/ascend2/proprietary/etc/bluetooth/auto_pairing.conf:system/etc/bluetooth/auto_pairing.conf \
-     vendor/huawei/ascend2/proprietary/etc/bluetooth/BCM4329.hcd:system/etc/bluetooth/BCM4329.hcd \
-     vendor/huawei/ascend2/proprietary/lib/libbluetooth.so:system/lib/libbluetooth.so
+     vendor/huawei/ascend2/proprietary/etc/bluetooth/BCM4329.hcd:system/etc/bluetooth/BCM4329.hcd
+
      
 $(call inherit-product, build/target/product/small_base.mk)
 
@@ -248,4 +226,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.cdma_subscription=1 \
     ro.cdma.voicemail.number=mine \
     ro.setupwizard.enable_bypass=1 \
+    ro.config.srs.equalizer=true \
+    ro.config.hw_new_double_signal=1 \
     ro.config.play.bootsound=1
