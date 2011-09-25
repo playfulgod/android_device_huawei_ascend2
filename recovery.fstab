@@ -6,6 +6,10 @@
 /recovery         mtd        recovery
 /sdcard           vfat       /dev/block/mmcblk0p1   /dev/block/mmcblk0
 /system           yaffs2     system
+<<<<<<< HEAD
 /sd-ext		  ext4	     /dev/block/mmcblk0p2 
+=======
+/sd-ext           ext4       /dev/block/mmcblk0p2
+>>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
 
 
