@@ -1,8 +1,10 @@
 LOCAL_PATH := $(call my-dir)
 
-include $(CLEAR_VARS)
+file := $(TARGET_ROOT_OUT)/init.huawei.rc
+ALL_PREBUILT += $(file)
+$(file) : $(LOCAL_PATH)/init.huawei.rc | $(ACP)
+	$(transform-prebuilt-to-target)
 
-ALL_PREBUILT += $(INSTALLED_KERNEL_TARGET)
 
 # include the non-open-source counterpart to this file
 -include vendor/huawei/ascend2/AndroidBoardVendor.mk

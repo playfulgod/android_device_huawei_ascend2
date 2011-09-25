@@ -1,0 +1,13 @@
+#!/system/bin/sh
+#bootsound - plays a sound at boot
+
+
+bprop=/system/build.prop
+grepprop() { x=`grep "^$1=" $bprop | head -n 1`; echo $x | cut -d = -f 2; }
+
+play=`grepprop "ro.config.play.bootsound"`
+
+if [ "$play" = "1" ]; then
+        stagefright -a -o /system/media/audio/ui/android_audio.mp3
+fi
+exit 0

@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/device_ascend2.mk
+    $(LOCAL_DIR)/ascend2.mk
