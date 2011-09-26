@@ -20,8 +20,6 @@
 # In particular, you can add lunch options with the add_lunch_combo
 # function: add_lunch_combo generic-eng
 
-<<<<<<< HEAD
 add_lunch_combo generic_ascend2-eng
-=======
 add_lunch_combo full_ascend2-eng
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
+

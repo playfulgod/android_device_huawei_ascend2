@@ -56,12 +56,9 @@ PRODUCT_COPY_FILES += \
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
-<<<<<<< HEAD
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle 
-=======
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
     device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
 
 # DHCP config for wifi
 PRODUCT_COPY_FILES += \
@@ -103,10 +100,8 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
     vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw 
 
-<<<<<<< HEAD
-=======
+
 PRODUCT_LOCALES += mdpi
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
 
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=eth0 \
@@ -126,11 +121,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Perfomance tweaks
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
-<<<<<<< HEAD
     dalvik.vm.heapsize=32m \
-=======
     dalvik.vm.heapsize=24m \
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
     persist.sys.use_dithering=1 \
     persist.sys.purgeable_assets=1 \
     ro.compcache.default=18
@@ -175,18 +167,7 @@ PRODUCT_COPY_FILES += \
 
 # GPS
 PRODUCT_COPY_FILES += \
-<<<<<<< HEAD
-    vendor/huawei/ascend2/proprietary/etc/gps.conf:system/etc/gps.conf
-=======
-    vendor/huawei/ascend2/proprietary/etc/gps.conf:system/etc/gps.conf \
-    vendor/huawei/ascend2/proprietary/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
-    vendor/huawei/ascend2/proprietary/system/lib/libloc_api.so:system/lib/libloc_api.so \
-    vendor/huawei/ascend2/proprietary/system/lib/libgps.so:system/lib/libgps.so \
-    vendor/huawei/ascend2/proprietary/system/lib/libloc.so:system/lib/libloc.so \
-    vendor/huawei/ascend2/proprietary/system/lib/libloc.so:obj/lib/libloc.so \
-    vendor/huawei/ascend2/proprietary/system/lib/libcommondefs.so:system/lib/libcommondefs.so \
-    vendor/huawei/ascend2/proprietary/system/lib/libloc-rpc.so:system/lib/libloc-rpc.so 
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
+    vendor/huawei/ascend2/proprietary/etc/gps.conf:system/etc/gps.conf 
 
 # Proprietary RIL related
 PRODUCT_COPY_FILES += \
@@ -209,29 +190,18 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/lib/libsnd.so:system/lib/libsnd.so \
     vendor/huawei/ascend2/proprietary/lib/libqmi.so:system/lib/libqmi.so \
     vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \
-<<<<<<< HEAD
     vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
     vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
     vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild \
     vendor/huawei/ascend2/proprietary/bin/qmuxd:system/bin/qmuxd \
     vendor/huawei/ascend2/proprietary/bin/modempre:system/bin/modempre \
-    vendor/huawei/ascend2/proprietary/bin/oem_rpc_svc:system/bin/oem_rpc_svc \
-=======
-    vendor/huawei/ascend2/proprietary/lib/liblgerft.so:system/lib/liblgerft.so \
-    vendor/huawei/ascend2/proprietary/lib/libbcmwl.so:system/lib/libbcmwl.so \
-    vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
-    vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
-    vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
+    vendor/huawei/ascend2/proprietary/bin/oem_rpc_svc:system/bin/oem_rpc_svc
 
 
 ## Wifi related
 PRODUCT_COPY_FILES += \
-<<<<<<< HEAD
     device/huawei/ascend2/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
-=======
     device/huawei/ascend2/modules/dhd.ko:system/lib/modules/dhd.ko \
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
     vendor/huawei/ascend2/proprietary/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
     vendor/huawei/ascend2/proprietary/wifi/nvram.txt:system/wifi/nvram.txt
 
@@ -239,15 +209,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
      vendor/huawei/ascend2/proprietary/etc/bluetooth/BCM4329.hcd:system/etc/bluetooth/BCM4329.hcd
 
-<<<<<<< HEAD
 # Boot
 PRODUCT_COPY_FILES += \
      device/huawei/ascend2/include/bin/bootsound/:system/bin/bootsound \
      device/huawei/ascend2/include/media/audio/ui/android_audio.mp3:system/media/audio/ui/android_audio.mp3 \
      device/huawei/ascend2/include/etc/init.local.rc:system/etc/init.local.rc \
      device/huawei/ascend2/include/media/bootanimation.zip:system/media/bootanimation.zip 
-=======
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
      
 $(call inherit-product, build/target/product/small_base.mk)
 
@@ -257,23 +224,17 @@ PRODUCT_DEVICE := ascend2
 PRODUCT_MODEL := Huawei-M865
 
 PRODUCT_PROPERTY_OVERRIDES += \
-<<<<<<< HEAD
     ro.com.google.clientidbase=android-huawei-us \
     ro.com.google.locationfeatures=1 \
     ro.cdma.home.operator.numeric=31016 \
     ro.cdma.home.operator.alpha=Cricket \
-=======
     ro.com.google.clientidbase=android-google-us \
     ro.com.google.locationfeatures=1 \
     ro.cdma.home.operator.numeric=31016 \
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
     ro.config.cdma_subscription=1 \
     ro.cdma.voicemail.number=mine \
     ro.setupwizard.enable_bypass=1 \
     ro.config.srs.equalizer=true \
     ro.config.hw_new_double_signal=1 \
-<<<<<<< HEAD
     ro.tether.denied=false \
-=======
->>>>>>> ab9df076f69ae8f78ffcc5234f78bb9aa7c895f5
     ro.config.play.bootsound=1
