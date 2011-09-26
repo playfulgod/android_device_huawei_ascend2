@@ -57,7 +57,8 @@ PRODUCT_COPY_FILES += \
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
-    device/huawei/ascend2/init.qcom.rc:root/init.qcom.rc
+    device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc \
+    device/huawei/ascend2/include/ueventd.qcom.rc:root/ueventd.qcom.rc
 
 # DHCP config for wifi
 PRODUCT_COPY_FILES += \
@@ -121,7 +122,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
     dalvik.vm.heapsize=32m \
-    dalvik.vm.heapsize=24m \
     persist.sys.use_dithering=1 \
     persist.sys.purgeable_assets=1 \
     ro.compcache.default=18
@@ -161,7 +161,7 @@ PRODUCT_COPY_FILES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/bin/akmd8975:system/bin/akmd8975 \
+    vendor/huawei/ascend2/proprietary/bin/akmd8975:system/bin/akmd2 \
     vendor/huawei/ascend2/proprietary/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
 
 # GPS
@@ -191,17 +191,25 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \
     vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
     vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
+    vendor/huawei/ascend2/proprietary/lib/libreference-ril.so:system/lib/libreference-ril.so \
+    vendor/huawei/ascend2/proprietary/lib/libshareril.so:system/lib/libshareril.so \
     vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild \
     vendor/huawei/ascend2/proprietary/bin/qmuxd:system/bin/qmuxd \
     vendor/huawei/ascend2/proprietary/bin/modempre:system/bin/modempre \
     vendor/huawei/ascend2/proprietary/bin/oem_rpc_svc:system/bin/oem_rpc_svc
 
+PRODUCT_COPY_FILES += \
+    vendor/huawei/ascend2/proprietary/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    vendor/huawei/ascend2/proprietary/etc/init.qcom.coex.sh:system/etc/init.qcom.fm.sh \
+    vendor/huawei/ascend2/proprietary/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
+    vendor/huawei/ascend2/proprietary/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh 
 
 ## Wifi related
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
     device/huawei/ascend2/modules/dhd.ko:system/lib/modules/dhd.ko \
     vendor/huawei/ascend2/proprietary/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
+    vendor/huawei/ascend2/proprietary/wifi/firmware.bin:system/wifi/firmware.bin \
     vendor/huawei/ascend2/proprietary/wifi/nvram.txt:system/wifi/nvram.txt
 
 ## Bluetooth related

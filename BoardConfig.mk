@@ -20,7 +20,7 @@ TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
-BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=qcom
+BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 2048
 
@@ -29,26 +29,30 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recover
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/ascend2/recovery_kernel
 
-#TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
-#BOARD_NO_RGBX_8888 := true
+TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
+BOARD_NO_RGBX_8888 := true
 
-
-#TARGET_PROVIDES_INIT_TARGET_RC := true
-#TARGET_USES_OLD_LIBSENSORS_HAL := true
 
 # Wifi related defines
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 WPA_SUPPLICANT_VERSION := VER_0_6_X
-#WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
-#WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/wifi/firmware_apsta.bin nvram_path=/system/wifi/nvram.txt"
-#WIFI_DRIVER_MODULE_NAME := "dhd"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/wifi/firmware_apsta.bin nvram_path=/system/wifi/nvram.txt"
+WIFI_DRIVER_MODULE_NAME := "dhd"
 WIFI_SDIO_IF_DRIVER_MODULE_PATH := "/system/lib/modules/librasdioif.ko"
 WIFI_SDIO_IF_DRIVER_MODULE_NAME := "librasdioif"
+## Tethering
+WIFI_DRIVER_FW_STA_PATH := "/system/wifi/firmware.bin"
+WIFI_DRIVER_FW_AP_PATH := "/system/wifi/firmware_apsta.bin"
 
 # HW
-BOARD_HAVE_BLUETOOTH := true
 BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_VENDOR_USE_AKMD := akm8975
+BOARD_WLAN_DEVICE := bcm4329
 
 BOARD_EGL_CFG := vendor/huawei/ascend2/proprietary/lib/egl/egl.cfg
 
@@ -79,6 +83,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # USB
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+#BOARD_CUSTOM_USB_CONTROLLER := ../../device/huawei/ascend2/netd/UsbController.cpp
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
 ## FM Radio
@@ -88,5 +93,10 @@ BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 TARGET_PREBUILT_KERNEL := device/huawei/ascend2/kernel
 
 # Stagefright fully enabled
-#BUILD_WITH_FULL_STAGEFRIGHT := true
+BUILD_WITH_FULL_STAGEFRIGHT := true
+
+# MISC
+WITH_JIT := true
+ENABLE_JSC_JIT := true
+JS_ENGINE := v8
 

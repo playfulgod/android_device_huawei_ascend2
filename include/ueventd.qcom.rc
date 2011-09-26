@@ -1,0 +1,14 @@
+/dev/msm_camera/*                0660   system       system
+/dev/oncrpc/*                    0660   radio        system
+/dev/smd*                        0660   radio        system
+/sys/kernel/logger/log_main/*    0777   system       system
+/sys/kernel/logger/log_events/*  0777   system       system
+/sys/kernel/logger/log_radio/*   0777   system       system
+/dev/input/event*                0777   system       system
+/dev/rfkill                      0660   bluetooth    bluetooth
+
+/dev/accel                       0660   system       system
+/dev/accel                       0660   system       system
+/dev/akm8973_aot                 0660   system       system
+/dev/akm8973_dev                 0660   system       system
+

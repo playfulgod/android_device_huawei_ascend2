@@ -21,4 +21,5 @@
 # function: add_lunch_combo generic-eng
 
 add_lunch_combo full_ascend2-eng
+add_lunch_combo generic-ascend2-eng
 
