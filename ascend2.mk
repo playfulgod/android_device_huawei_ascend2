@@ -57,7 +57,7 @@ PRODUCT_COPY_FILES += \
 # Board-specific init
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
-    device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc
+    device/huawei/ascend2/init.qcom.rc:root/init.qcom.rc
 
 # DHCP config for wifi
 PRODUCT_COPY_FILES += \

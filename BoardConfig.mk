@@ -9,7 +9,7 @@ TARGET_ARCH_VARIANT := armv6j
 TARGET_CPU_ABI := armeabi-v6j
 TARGET_CPU_ABI2 := armeabi
 
-#PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=device/huawei/ascend/include/prelink-linux-arm.map
+PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=device/huawei/ascend/include/prelink-linux-arm.map
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := msm7k
 TARGET_CPU_ABI := armeabi-v6j
@@ -20,7 +20,7 @@ TARGET_NO_KERNEL := false
 TARGET_NO_RECOVERY := false
 TARGET_NO_RADIOIMAGE := true
 
-BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
+BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=qcom
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 2048
 
