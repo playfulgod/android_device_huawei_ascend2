@@ -56,7 +56,6 @@ PRODUCT_COPY_FILES += \
 
 # Board-specific init
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle 
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
     device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc
 
