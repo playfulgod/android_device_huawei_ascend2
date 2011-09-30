@@ -1,102 +1,75 @@
+
+LOCAL_PATH:= $(call my-dir)
+
 USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
 -include vendor/huawei/ascend2/BoardConfigVendor.mk
 
-# ARMv6-compatible processor rev 5 (v6l)
-TARGET_BOARD_PLATFORM := msm7k
-TARGET_ARCH_VARIANT := armv6j
-TARGET_CPU_ABI := armeabi-v6j
-TARGET_CPU_ABI2 := armeabi
-
-PRODUCT_SPECIFIC_DEFINES += TARGET_PRELINKER_MAP=device/huawei/ascend/include/prelink-linux-arm.map
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := msm7k
-TARGET_CPU_ABI := armeabi-v6j
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
+TARGET_ARCH_VARIANT := armv6-vfp
+TARGET_CPU_ABI := armeabi-v6l
+TARGET_CPU_ABI2 := armeabi
 TARGET_BOOTLOADER_BOARD_NAME := M865
-
-TARGET_NO_KERNEL := false
-TARGET_NO_RECOVERY := false
-TARGET_NO_RADIOIMAGE := true
 
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
 BOARD_KERNEL_BASE := 0x10200000
-BOARD_PAGE_SIZE := 2048
+BOARD_PAGE_SIZE := 0x00000800
 
-# Recovery
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/ascend2/recovery/recovery_ui.c
-BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/ascend2/recovery_kernel
+WITH_JIT := true
+ENABLE_JSC_JIT := true
+JS_ENGINE := v8
 
+# Graphics
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
 BOARD_NO_RGBX_8888 := true
 
+# OpenGL drivers config file path
+BOARD_EGL_CFG := device/huawei/ascend2/include/egl.cfg
 
-# Wifi related defines
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-WPA_SUPPLICANT_VERSION := VER_0_6_X
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
-WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/wifi/firmware_apsta.bin nvram_path=/system/wifi/nvram.txt"
-WIFI_DRIVER_MODULE_NAME := "dhd"
-WIFI_SDIO_IF_DRIVER_MODULE_PATH := "/system/lib/modules/librasdioif.ko"
-WIFI_SDIO_IF_DRIVER_MODULE_NAME := "librasdioif"
-## Tethering
-WIFI_DRIVER_FW_STA_PATH := "/system/wifi/firmware.bin"
-WIFI_DRIVER_FW_AP_PATH := "/system/wifi/firmware_apsta.bin"
-
-# HW
 BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_LIBRPC := true
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_VENDOR_USE_AKMD := akm8975
-BOARD_WLAN_DEVICE := bcm4329
-
-BOARD_EGL_CFG := vendor/huawei/ascend2/proprietary/lib/egl/egl.cfg
-
-# GPS
 BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := M865
 BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
 
+TARGET_PROVIDES_LIBAUDIO := true
+
+#BOARD_HAVE_FM_RADIO := true
+#BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
+#BOARD_FM_DEVICE := bcm4329
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+
+# Connectivity - Wi-Fi
+WPA_SUPPLICANT_VERSION := VER_0_6_X
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+#BOARD_WLAN_DEVICE := bcm4329
+WIFI_DRIVER_MODULE_PATH := "/system/wifi/dhd.ko"
+WIFI_DRIVER_FW_STA_PATH := "/system/wifi/firmware.bin"
+WIFI_DRIVER_FW_AP_PATH  := "/system/wifi/firmware_apsta.bin"
+WIFI_DRIVER_MODULE_NAME := "dhd"
+WIFI_DRIVER_MODULE_ARG  := "firmware_path=/system/wifi/firmware.bin nvram_path=/system/wifi/nvram.txt"
+
+# SDCard
+BOARD_USE_USB_MASS_STORAGE_SWITCH := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/usb_mass_storage/lun
+BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
 # fix this up by examining /proc/mtd on a running device
-## cat /proc/mtd
-# dev:    size   erasesize  name
-# mtd0: 00500000 00020000 "boot"
-# mtd1: 00500000 00020000 "recovery"
-# mtd2: 00140000 00020000 "misc"
-# mtd3: 00060000 00020000 "splash"
-# mtd4: 0ba00000 00020000 "system"
-# mtd5: 03f00000 00020000 "cache"
-# mtd6: 0a0a0000 00020000 "userdata"
-# mtd7: 01400000 00020000 "userdata2"
-# mtd8: 01400000 00020000 "cust"
-
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00500000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0ba00000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x0a0a0000
 BOARD_FLASH_BLOCK_SIZE := 131072
 
-# USB
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
-#BOARD_CUSTOM_USB_CONTROLLER := ../../device/huawei/ascend2/netd/UsbController.cpp
-BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
-
-## FM Radio
-#BOARD_HAVE_FM_RADIO := true
-#BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-
 TARGET_PREBUILT_KERNEL := device/huawei/ascend2/kernel
 
-# Stagefright fully enabled
-BUILD_WITH_FULL_STAGEFRIGHT := true
-
-# MISC
-WITH_JIT := true
-ENABLE_JSC_JIT := true
-JS_ENGINE := v8
+# recovery
+TARGET_PREBUILT_RECOVERY_KERNEL := device/huawei/ascend2/recovery_kernel
+BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/huawei/ascend2/recovery/recovery_ui.c
 

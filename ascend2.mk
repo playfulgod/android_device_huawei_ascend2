@@ -1,73 +1,111 @@
-#
-# Copyright (C) 2011 The Android Open Source Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_small.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
-#$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, device/common/gps/gps_as_supl.mk)
 
-#$(call inherit-product-if-exists, vendor/huawei/ascend2/ascend2-vendor.mk)
+# proprietary side of the device
+$(call inherit-product-if-exists, vendor/huawei/ascend2/ascend2-vendor.mk)
+
+$(call inherit-product, build/target/product/full.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/huawei/ascend2/overlay
 
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := device/huawei/ascend2/kernel
+LOCAL_KERNEL := device/huawei/ascend2/kernel
 else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_NAME := full_ascend2
+PRODUCT_DEVICE = hwm865
+PRODUCT_MODEL := Huawei-M865
+PRODUCT_LOCALES := en_US
+PRODUCT_DEFAULT_REGION := US
+
+
 PRODUCT_PACKAGES += \
-    copybit.M865 \
-    gps.M865 \
-    libRS \
-    hwprops \
-    rzscontrol \
-    libOmxCore \
-    libmm-omxcore \
-    libOmxVidEnc \
-    Gallery \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    MagicSmokeWallpapers \
+    VisualizationWallpapers \
     librs_jni \
-    LiveWallpapersPicker
+    Gallery3d \
+    SpareParts \
+    Term \
+    libaudio \
+    libril \
+    libcamera \
+    libOmxCore \
+    libOmxVidEnc \
+    dexpreopt \
+    gps.M865 \
+    copybit.M865 \
+    lights.M865
 
-# Live Wallpapers support
-PRODUCT_COPY_FILES += \
-    packages/wallpapers/LivePicker/android.software.live_wallpaper.xml:/system/etc/permissions/android.software.live_wallpaper.xml
+DISABLE_DEXPREOPT := false
 
-# SDCARD
+# Void
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/vold.fstab:system/etc/vold.fstab
+    device/huawei/ascend2/vold.fstab:system/etc/vold.fstab
 
-# Board-specific init
+# bluetooth
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle \
+    device/huawei/ascend2/include/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
+
+# apns-conf.xml
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/include/apns-conf.xml:system/etc/apns-conf.xml
+
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/include/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+
+# Init
+PRODUCT_COPY_FILES += \
     device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc \
-    device/huawei/ascend2/include/ueventd.qcom.rc:root/ueventd.qcom.rc
+    device/huawei/ascend2/include/ueventd.qcom.rc:root/ueventd.qcom.rc \
+    device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle
 
-# DHCP config for wifi
+# Audio
 PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd.conf \
+    device/huawei/ascend2/include/AudioFilter.csv:system/etc/AudioFilter.csv \
+    device/huawei/ascend2/include/AutoVolumeControl.txt:system/etc/AutoVolumeControl.txt 
 
-# Keylayouts
+#Media profile
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/keychars/surf_keypad.kcm.bin:system/usr/keychars/surf_keypad.kcm.bin \
-    device/huawei/ascend2/keylayout/surf_keypad.kl:system/usr/keylayout/surf_keypad.kl
+    device/huawei/ascend2/include/media_profiles.xml:system/etc/media_profiles.xml
+
+# Wifi firmware
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/prebuild/wifi/dhd.ko:system/wifi/dhd.ko \
+    device/huawei/ascend2/prebuild/wifi/firmware.bin:system/wifi/firmware.bin \
+    device/huawei/ascend2/prebuild/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
+    device/huawei/ascend2/prebuild/wifi/nvram.txt:system/wifi/nvram.txt
+
+# DHCP Config
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/include/wifi/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+
+
+
+##Added Files for bootsound and themes
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/include/app/RoverCyan.apk:system/app/RoverCyan.apk \
+    device/huawei/ascend2/include/app/com.mike.theme.hc3d3d-1.apk:system/app/com.mike.theme.hc3d3d-1.apk \
+    device/huawei/ascend2/include/app/DarkADBWireless-v1.apk:system/app/DarkADBWireless-v1.apk \
+    device/huawei/ascend2/include/app/com.elgubbo.a2sdGUI-1.apk:system/app/com.elgubbo.a2sdGUI-1.apk \
+    device/huawei/ascend2/include/bin/bootsound:system/bin/bootsound \
+    device/huawei/ascend2/include/media/audio/ui/android_audio.mp3:system/media/audio/ui/android_audio.mp3 \
+    device/huawei/ascend2/include/media/bootanimation.zip:system/media/bootanimation.zip \
+    device/huawei/ascend2/include/etc/hosts:system/etc/hosts \
+    device/huawei/ascend2/include/app/Swype.apk:system/app/Swype.apk \
+    device/huawei/ascend/include/etc/init.local.rc:system/etc/init.local.rc
+
+
 
 # Install the features available on this device.
 PRODUCT_COPY_FILES += \
@@ -76,172 +114,60 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/base/data/etc/android.hardware.location.xml:system/etc/permissions/android.hardware.location.xml \
     frameworks/base/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/base/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/base/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/base/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    vendor/huawei/ascend2/proprietary/etc/permissions/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.xml:system/etc/permissions/android.hardware.touchscreen.xml \
-    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen/multitouch.xml \
-    frameworks/base/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/base/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/base/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
-    vendor/huawei/ascend2/proprietary/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml 
+    frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
+    frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
 
-# 3D
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/egl/egl.cfg:system/lib/egl/egl.cfg \
-    vendor/huawei/ascend2/proprietary/lib/egl/libGLES_android.so:system/lib/egl/libGLES_android.so \
-    vendor/huawei/ascend2/proprietary/lib/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \
-    vendor/huawei/ascend2/proprietary/lib/egl/libGLESv1_CM_adreno200.so:system/lib/egl/libGLESv1_CM_adreno200.so \
-    vendor/huawei/ascend2/proprietary/lib/egl/libGLESv2_adreno200.so:system/lib/egl/libGLESv2_adreno200.so \
-    vendor/huawei/ascend2/proprietary/lib/egl/libq3dtools_adreno200.so:system/lib/egl/libq3dtools_adreno200.so \
-    vendor/huawei/ascend2/proprietary/lib/libgsl.so:system/lib/libgsl.so \
-    vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-    vendor/huawei/ascend2/proprietary/etc/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw 
-
-
+# M865 uses mid-density
 PRODUCT_LOCALES += mdpi
+
+
 
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=eth0 \
     wifi.supplicant_scan_interval=90 \
     ro.sf.lcd_density=160 \
-    ro.com.android.dataroaming=false
+    ro.com.android.dataroaming=false \
+    ro.config.play.bootsound=1
 
-# Default network type
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.telephony.default_network=4
 
-# The OpenGL ES API level that is natively supported by this device.
-# This is a 16.16 fixed point number
+
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.opengles.version=65537
+    ro.config.hw_virtualsdcard=true \
+    ro.config.srs.equalizer=true \
+    ro.config.srs.default.type=1 \
+    ro.config.hw_new_double_signal=1 \
+    ro.config.hw_fast_dormancy=1 \
+    ro.config.hw_camera_resize=true \
+    debug.sf.hw=0 \
+    ro.config.hw_menu_unlockscreen=false \
+    ro.config.hw_allow_g_map=false \
+    ro.config.hw_voicerecord=true \
+    ro.config.hw_GSensorOptimize=true \
+    ro.opengles.version=131072 \
+    ro.config.hw_proximity=true \
+    dalvik.vm.heapsize=32m \
+    ro.config.hw_opta=92 \
+    ro.config.hw_optb=156 \
+    ro.cdma.home.operator.numeric=31016 \
+    ro.telephony.default_network=4 \
+    ro.cdma.home.operator.alpha=Cricket \
+    ro.config.cdma_subscription=1 \
+    ro.cdma.voicemail.number=*99 \
+    ro.com.google.locationfeatures=1 \
+    ro.denied.tether=false \
 
 # Perfomance tweaks
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
-    dalvik.vm.heapsize=32m \
-    persist.sys.use_dithering=1 \
-    persist.sys.purgeable_assets=1 \
-    ro.compcache.default=18
 
-# Don't put dexfiles in /cache on ascend2
+# Don't put dexfiles in /cache
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=1
 
-# Media configuration xml file
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/media_profiles.xml:system/etc/media_profiles.xml
-
-# wpa_supplicant configuration file
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
-
-# Proprietary hardware related
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/liboemcamera.so:system/lib/liboemcamera.so \
-    vendor/huawei/ascend2/proprietary/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
-    vendor/huawei/ascend2/proprietary/lib/libmmipl.so:system/lib/libmmipl.so
-
-
-# Sound and OMX
-PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/etc/AudioFilter.csv:system/etc/AudioFilter.csv \
-    vendor/huawei/ascend2/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so \
-    vendor/huawei/ascend2/proprietary/lib/libmm-adspsvc.so:system/lib/libmm-adspsvc.so \
-    vendor/huawei/ascend2/proprietary/lib/libOmxH264Dec.so:system/lib/libOmxH264Dec.so \
-    vendor/huawei/ascend2/proprietary/lib/libOmxMpeg4Dec.so:system/lib/libOmxMpeg4Dec.so \
-    vendor/huawei/ascend2/proprietary/lib/libOmxVidEnc.so:system/lib/libOmxVidEnc.so
-
-# Lights and graphics
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so \
-    vendor/huawei/ascend2/proprietary/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7k.so
-
-# Sensors
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/bin/akmd8975:system/bin/akmd2 \
-    vendor/huawei/ascend2/proprietary/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so
-
-# GPS
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/gps.conf:system/etc/gps.conf 
-
-# Proprietary RIL related
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/lib/libril-qc-1.so:system/lib/libril-qc-1.so \
-    vendor/huawei/ascend2/proprietary/lib/liboncrpc.so:system/lib/liboncrpc.so \
-    vendor/huawei/ascend2/proprietary/lib/libdsm.so:system/lib/libdsm.so \
-    vendor/huawei/ascend2/proprietary/lib/libqueue.so:system/lib/libqueue.so \
-    vendor/huawei/ascend2/proprietary/lib/libdiag.so:system/lib/libdiag.so \
-    vendor/huawei/ascend2/proprietary/lib/libauth.so:system/lib/libauth.so \
-    vendor/huawei/ascend2/proprietary/lib/libcm.so:system/lib/libcm.so \
-    vendor/huawei/ascend2/proprietary/lib/libnv.so:system/lib/libnv.so \
-    vendor/huawei/ascend2/proprietary/lib/libpbmlib.so:system/lib/libpbmlib.so \
-    vendor/huawei/ascend2/proprietary/lib/libwms.so:system/lib/libwms.so \
-    vendor/huawei/ascend2/proprietary/lib/libwmsts.so:system/lib/libwmsts.so \
-    vendor/huawei/ascend2/proprietary/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \
-    vendor/huawei/ascend2/proprietary/lib/libgsdi_exp.so:system/lib/libgsdi_exp.so \
-    vendor/huawei/ascend2/proprietary/lib/libgstk_exp.so:system/lib/libgstk_exp.so \
-    vendor/huawei/ascend2/proprietary/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \
-    vendor/huawei/ascend2/proprietary/lib/liboem_rapi.so:system/lib/liboem_rapi.so \
-    vendor/huawei/ascend2/proprietary/lib/libsnd.so:system/lib/libsnd.so \
-    vendor/huawei/ascend2/proprietary/lib/libqmi.so:system/lib/libqmi.so \
-    vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \
-    vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \
-    vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \
-    vendor/huawei/ascend2/proprietary/lib/libreference-ril.so:system/lib/libreference-ril.so \
-    vendor/huawei/ascend2/proprietary/lib/libshareril.so:system/lib/libshareril.so \
-    vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild \
-    vendor/huawei/ascend2/proprietary/bin/qmuxd:system/bin/qmuxd \
-    vendor/huawei/ascend2/proprietary/bin/modempre:system/bin/modempre \
-    vendor/huawei/ascend2/proprietary/bin/oem_rpc_svc:system/bin/oem_rpc_svc
-
-PRODUCT_COPY_FILES += \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.coex.sh:system/etc/init.qcom.fm.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
-    vendor/huawei/ascend2/proprietary/etc/init.qcom.post_boot.sh:system/etc/init.qcom.post_boot.sh 
-
-## Wifi related
-PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/modules/librasdioif.ko:system/lib/modules/librasdioif.ko \
-    device/huawei/ascend2/modules/dhd.ko:system/lib/modules/dhd.ko \
-    vendor/huawei/ascend2/proprietary/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
-    vendor/huawei/ascend2/proprietary/wifi/firmware.bin:system/wifi/firmware.bin \
-    vendor/huawei/ascend2/proprietary/wifi/nvram.txt:system/wifi/nvram.txt
-
-## Bluetooth related
-PRODUCT_COPY_FILES += \
-     vendor/huawei/ascend2/proprietary/etc/bluetooth/BCM4329.hcd:system/etc/bluetooth/BCM4329.hcd
-
-# Boot
-PRODUCT_COPY_FILES += \
-     device/huawei/ascend2/include/bin/bootsound/:system/bin/bootsound \
-     device/huawei/ascend2/include/media/audio/ui/android_audio.mp3:system/media/audio/ui/android_audio.mp3 \
-     device/huawei/ascend2/include/etc/init.local.rc:system/etc/init.local.rc \
-     device/huawei/ascend2/include/media/bootanimation.zip:system/media/bootanimation.zip 
-     
-$(call inherit-product, build/target/product/small_base.mk)
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_ascend2
-PRODUCT_DEVICE := ascend2
-PRODUCT_MODEL := Huawei-M865
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-huawei-us \
-    ro.com.google.locationfeatures=1 \
-    ro.cdma.home.operator.numeric=31016 \
-    ro.cdma.home.operator.alpha=Cricket \
-    ro.com.google.clientidbase=android-google-us \
-    ro.com.google.locationfeatures=1 \
-    ro.cdma.home.operator.numeric=31016 \
-    ro.config.cdma_subscription=1 \
-    ro.cdma.voicemail.number=mine \
-    ro.setupwizard.enable_bypass=1 \
-    ro.config.srs.equalizer=true \
-    ro.config.hw_new_double_signal=1 \
-    ro.tether.denied=false \
-    ro.config.play.bootsound=1
+# apps2sd
+#$(call inherit-product-if-exists, include/a2sd/a2sd.mk)

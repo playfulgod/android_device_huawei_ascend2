@@ -1,5 +1,8 @@
 #
-# system.prop for ascend2
+# system.prop for m865
+#
+#
+# system.prop for ascend
 #
 
 rild.libpath=/system/lib/libril-qc-1.so
@@ -15,3 +18,12 @@ ro.tether.denied=false
 
 # Disable fs check on boot by default.
 sys.checkfs.fat=false
+
+# Increase SKIA decode memory capability for progressive jpg file.
+ro.media.dec.jpeg.memcap=20000000
+
+# This will go away someday.
+# Debugging oem_rpc_svc.
+ro.confg.hw_appsbootversion=M865V100R001C153B826_APPSBOOT
+ro.confg.hw_appversion=M865V100R001C153B826_KERNEL
+ro.confg.hw_appfsversion=M865V100R001C153B826_SYSIMG

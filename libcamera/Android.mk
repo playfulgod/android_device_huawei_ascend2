@@ -1,17 +1,22 @@
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),thunderc)
+ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),M865)
 
 # When zero we link against libmmcamera; when 1, we dlopen libmmcamera.
 DLOPEN_LIBMMCAMERA:=1
+
 
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE_TAGS := optional
 
+LOCAL_PRELINK_MODULE := false
+
 LOCAL_SRC_FILES:= QualcommCameraHardware.cpp
 
 LOCAL_CFLAGS:= -DDLOPEN_LIBMMCAMERA=$(DLOPEN_LIBMMCAMERA)
 
+## Can be raised to 6 to improve framerate, at the cost of allocating
+## more ADSP memory. Use 0xa68000 as pool size in kernel to test
 LOCAL_CFLAGS+= -DNUM_PREVIEW_BUFFERS=4 -D_ANDROID_
 
 LOCAL_C_INCLUDES+= \

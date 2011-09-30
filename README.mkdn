@@ -39,7 +39,7 @@ We will need to reuse some proprietary files from the stock ROM:
     
     $ cd ~/android/system/device/huawei/ascend2/
     
-    $ ./extract-files.sh
+    $ ./extract-files.sh adb
 
 Building CM7
 -------------

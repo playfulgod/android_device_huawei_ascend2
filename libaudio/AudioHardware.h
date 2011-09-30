@@ -22,7 +22,6 @@
 
 #include <utils/threads.h>
 #include <utils/SortedVector.h>
-#include <sysutils/NetlinkListener.h>
 
 #include <hardware_legacy/AudioHardwareBase.h>
 
@@ -50,13 +49,13 @@ namespace android {
 #define EQ_MAX_BAND_NUM 12
 
 #define ADRC_ENABLE  0x0001
-#define ADRC_DISABLE 0xFFFE
+#define ADRC_DISABLE 0x0000
 #define EQ_ENABLE    0x0002
-#define EQ_DISABLE   0xFFFD
+#define EQ_DISABLE   0x0000
 #define RX_IIR_ENABLE  0x0004
-#define RX_IIR_DISABLE 0xFFFB
+#define RX_IIR_DISABLE 0x0000
 #define MBADRC_ENABLE  0x0010
-#define MBADRC_DISABLE 0xFFEF
+#define MBADRC_DISABLE 0x0000
 
 #define AGC_ENABLE     0x0001
 #define NS_ENABLE      0x0002
@@ -153,118 +152,98 @@ enum tty_modes {
 #define AUDIO_HW_IN_FORMAT (AudioSystem::PCM_16_BIT)  // Default audio input sample format
 // ----------------------------------------------------------------------------
 
-class NetlinkHandler;
+
 class AudioHardware : public  AudioHardwareBase
 {
     class AudioStreamOutMSM72xx;
     class AudioStreamInMSM72xx;
-    friend class AudioStreamInMSM72xx;
 
 public:
-                                    AudioHardware();
-    virtual                         ~AudioHardware();
-    virtual status_t                initCheck();
+                        AudioHardware();
+    virtual             ~AudioHardware();
+    virtual status_t    initCheck();
 
-    virtual status_t                setVoiceVolume(float volume);
-    virtual status_t                setMasterVolume(float volume);
-    virtual status_t                setFmVolume(float volume);
-            void                    setHookMode(bool mode);
-    virtual status_t                setMode(int mode);
+    virtual status_t    setVoiceVolume(float volume);
+    virtual status_t    setMasterVolume(float volume);
+
+    virtual status_t    setMode(int mode);
 
     // mic mute
-    virtual status_t                setMicMute(bool state);
-    virtual status_t                getMicMute(bool* state);
+    virtual status_t    setMicMute(bool state);
+    virtual status_t    getMicMute(bool* state);
 
-    virtual status_t                setParameters(const String8 &keyValuePairs);
-    virtual String8                 getParameters(const String8 &keys);
+    virtual status_t    setParameters(const String8& keyValuePairs);
+    virtual String8     getParameters(const String8& keys);
 
     // create I/O streams
-    virtual AudioStreamOut          *openOutputStream(
-                                        uint32_t devices,
-                                        int *format=0,
-                                        uint32_t *channels=0,
-                                        uint32_t *sampleRate=0,
-                                        status_t *status=0);
+    virtual AudioStreamOut* openOutputStream(
+                                uint32_t devices,
+                                int *format=0,
+                                uint32_t *channels=0,
+                                uint32_t *sampleRate=0,
+                                status_t *status=0);
 
-    virtual AudioStreamIn           *openInputStream(
-                                        uint32_t devices,
-                                        int *format,
-                                        uint32_t *channels,
-                                        uint32_t *sampleRate,
-                                        status_t *status,
-                                        AudioSystem::audio_in_acoustics acoustics);
+    virtual AudioStreamIn* openInputStream(
 
-    virtual void                    closeOutputStream(AudioStreamOut* out);
-    virtual void                    closeInputStream(AudioStreamIn* in);
+                                uint32_t devices,
+                                int *format,
+                                uint32_t *channels,
+                                uint32_t *sampleRate,
+                                status_t *status,
+                                AudioSystem::audio_in_acoustics acoustics);
 
-    virtual size_t                  getInputBufferSize(uint32_t sampleRate, int format, int channelCount);
-            void                    clearCurDevice() { mCurSndDevice = -1; }
+    virtual    void        closeOutputStream(AudioStreamOut* out);
+    virtual    void        closeInputStream(AudioStreamIn* in);
+
+    virtual    size_t      getInputBufferSize(uint32_t sampleRate, int format, int channelCount);
+               void        clearCurDevice() { mCurSndDevice = -1; }
 
 protected:
-    virtual status_t                dump(int fd, const Vector<String16>& args);
+    virtual status_t    dump(int fd, const Vector<String16>& args);
 
 private:
 
-            status_t                doAudioRouteOrMute(uint32_t device);
-            status_t                setMicMute_nosync(bool state);
-            status_t                checkMicMute();
-            status_t                dumpInternals(int fd, const Vector<String16>& args);
-            uint32_t                getInputSampleRate(uint32_t sampleRate);
-            bool                    checkOutputStandby();
-            status_t                doRouting(AudioStreamInMSM72xx *input);
-            status_t                setFmOnOff(bool onoff);
-            AudioStreamInMSM72xx    *getActiveInput_l();
-
-            NetlinkHandler          *mHandler;
-            int                     mSock;
-            static const uint32_t   inputSamplingRates[];
-            bool                    mInit;
-            bool                    mMicMute;
-            bool                    mBluetoothNrec;
-            uint32_t                mBluetoothId;
-            AudioStreamOutMSM72xx   *mOutput;
-            SortedVector <AudioStreamInMSM72xx*>   mInputs;
-            msm_snd_endpoint        *mSndEndpoints;
-            int                     mNumSndEndpoints;
-            uint32_t                mCurSndDevice;
-            bool                    mFmRadioEnabled;
-            int                     m7xsnddriverfd;
-            bool                    mDualMicEnabled;
-            int                     mTtyMode;
-            Mutex                   mLock;
+    status_t    doAudioRouteOrMute(uint32_t device);
+    status_t    setMicMute_nosync(bool state);
+    status_t    checkMicMute();
+    status_t    dumpInternals(int fd, const Vector<String16>& args);
+    uint32_t    getInputSampleRate(uint32_t sampleRate);
+    bool        checkOutputStandby();
+    status_t    doRouting(AudioStreamInMSM72xx *input);
+    AudioStreamInMSM72xx*   getActiveInput_l();
 
     class AudioStreamOutMSM72xx : public AudioStreamOut {
     public:
-                                AudioStreamOutMSM72xx();
-        virtual                 ~AudioStreamOutMSM72xx();
-                status_t        set(AudioHardware* mHardware,
-                                    uint32_t devices,
-                                    int *pFormat,
-                                    uint32_t *pChannels,
-                                    uint32_t *pRate);
-        virtual uint32_t        sampleRate() const { return 44100; }
+                            AudioStreamOutMSM72xx();
+        virtual             ~AudioStreamOutMSM72xx();
+                status_t    set(AudioHardware* mHardware,
+                                uint32_t devices,
+                                int *pFormat,
+                                uint32_t *pChannels,
+                                uint32_t *pRate);
+        virtual uint32_t    sampleRate() const { return 44100; }
         // must be 32-bit aligned - driver only seems to like 4800
-        virtual size_t          bufferSize() const { return 4800; }
-        virtual uint32_t        channels() const { return AudioSystem::CHANNEL_OUT_STEREO; }
-        virtual int             format() const { return AudioSystem::PCM_16_BIT; }
-        virtual uint32_t        latency() const { return (1000*AUDIO_HW_NUM_OUT_BUF*(bufferSize()/frameSize()))/sampleRate()+AUDIO_HW_OUT_LATENCY_MS; }
-        virtual status_t        setVolume(float left, float right) { return INVALID_OPERATION; }
-        virtual ssize_t         write(const void* buffer, size_t bytes);
-        virtual status_t        standby();
-        virtual status_t        dump(int fd, const Vector<String16>& args);
-                bool            checkStandby();
-        virtual status_t        setParameters(const String8 &keyValuePairs);
-        virtual String8         getParameters(const String8 &keys);
-                uint32_t        devices() { return mDevices; }
-        virtual status_t        getRenderPosition(uint32_t *dspFrames);
+        virtual size_t      bufferSize() const { return 4800; }
+        virtual uint32_t    channels() const { return AudioSystem::CHANNEL_OUT_STEREO; }
+        virtual int         format() const { return AudioSystem::PCM_16_BIT; }
+        virtual uint32_t    latency() const { return (1000*AUDIO_HW_NUM_OUT_BUF*(bufferSize()/frameSize()))/sampleRate()+AUDIO_HW_OUT_LATENCY_MS; }
+        virtual status_t    setVolume(float left, float right) { return INVALID_OPERATION; }
+        virtual ssize_t     write(const void* buffer, size_t bytes);
+        virtual status_t    standby();
+        virtual status_t    dump(int fd, const Vector<String16>& args);
+                bool        checkStandby();
+        virtual status_t    setParameters(const String8& keyValuePairs);
+        virtual String8     getParameters(const String8& keys);
+                uint32_t    devices() { return mDevices; }
+        virtual status_t    getRenderPosition(uint32_t *dspFrames);
 
     private:
-                AudioHardware   *mHardware;
-                int             mFd;
-                int             mStartCount;
-                int             mRetryCount;
-                bool            mStandby;
-                uint32_t        mDevices;
+                AudioHardware* mHardware;
+                int         mFd;
+                int         mStartCount;
+                int         mRetryCount;
+                bool        mStandby;
+                uint32_t    mDevices;
     };
 
     class AudioStreamInMSM72xx : public AudioStreamIn {
@@ -275,59 +254,61 @@ private:
             AUDIO_INPUT_STARTED
         };
 
-                                AudioStreamInMSM72xx();
-        virtual                 ~AudioStreamInMSM72xx();
-                status_t        set(AudioHardware *mHardware,
-                                    uint32_t devices,
-                                    int *pFormat,
-                                    uint32_t *pChannels,
-                                    uint32_t *pRate,
-                                    AudioSystem::audio_in_acoustics acoustics);
-        virtual size_t          bufferSize() const { return mBufferSize; }
-        virtual uint32_t        channels() const { return mChannels; }
-        virtual int             format() const { return mFormat; }
-        virtual uint32_t        sampleRate() const { return mSampleRate; }
-        virtual status_t        setGain(float gain) { return INVALID_OPERATION; }
-        virtual ssize_t         read(void *buffer, ssize_t bytes);
-        virtual status_t        dump(int fd, const Vector<String16>& args);
-        virtual status_t        standby();
-        virtual status_t        setParameters(const String8 &keyValuePairs);
-        virtual String8         getParameters(const String8 &keys);
-        virtual uint32_t        getInputFramesLost() const { return 0; }
-                uint32_t        devices() { return mDevices; }
-                int             state() const { return mState; }
+                            AudioStreamInMSM72xx();
+        virtual             ~AudioStreamInMSM72xx();
+                status_t    set(AudioHardware* mHardware,
+                                uint32_t devices,
+                                int *pFormat,
+                                uint32_t *pChannels,
+                                uint32_t *pRate,
+                                AudioSystem::audio_in_acoustics acoustics);
+        virtual size_t      bufferSize() const { return mBufferSize; }
+        virtual uint32_t    channels() const { return mChannels; }
+        virtual int         format() const { return mFormat; }
+        virtual uint32_t    sampleRate() const { return mSampleRate; }
+        virtual status_t    setGain(float gain) { return INVALID_OPERATION; }
+        virtual ssize_t     read(void* buffer, ssize_t bytes);
+        virtual status_t    dump(int fd, const Vector<String16>& args);
+        virtual status_t    standby();
+        virtual status_t    setParameters(const String8& keyValuePairs);
+        virtual String8     getParameters(const String8& keys);
+        virtual unsigned int  getInputFramesLost() const { return 0; }
+                uint32_t    devices() { return mDevices; }
+                int         state() const { return mState; }
 
     private:
-                AudioHardware   *mHardware;
-                int             mFd;
-                int             mState;
-                int             mRetryCount;
-                int             mFormat;
-                uint32_t        mChannels;
-                uint32_t        mSampleRate;
-                size_t          mBufferSize;
-                uint32_t        mDevices;
-                bool            mFirstread;
+                AudioHardware* mHardware;
+                int         mFd;
+                int         mState;
+                int         mRetryCount;
+                int         mFormat;
+                uint32_t    mChannels;
+                uint32_t    mSampleRate;
+                size_t      mBufferSize;
                 AudioSystem::audio_in_acoustics mAcoustics;
+                uint32_t    mDevices;
+                bool        mFirstread;
     };
-};
 
+            static const uint32_t inputSamplingRates[];
+            bool        mInit;
+            bool        mMicMute;
+            bool        mBluetoothNrec;
+            uint32_t    mBluetoothId;
+            AudioStreamOutMSM72xx*  mOutput;
+            SortedVector <AudioStreamInMSM72xx*>   mInputs;
 
-#include <sysutils/NetlinkListener.h>
+            msm_snd_endpoint *mSndEndpoints;
+            int mNumSndEndpoints;
+            int mCurSndDevice;
+            int m7xsnddriverfd;
+            bool        mDualMicEnabled;
+            int         mTtyMode;
 
-class NetlinkHandler: public NetlinkListener {
+            bool        mBuiltinMicSelected;
 
-public:
-    NetlinkHandler(int listenerSocket, AudioHardware *audio);
-    virtual ~NetlinkHandler();
-
-    int start(void);
-    int stop(void);
-
-private:
-    AudioHardware *mAudio;
-protected:
-    virtual void onEvent(NetlinkEvent *evt);
+     friend class AudioStreamInMSM72xx;
+            Mutex       mLock;
 };
 
 // ----------------------------------------------------------------------------

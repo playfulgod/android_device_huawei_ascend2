@@ -22,30 +22,26 @@
 #include <utils/KeyedVector.h>
 #include <hardware_legacy/AudioPolicyManagerBase.h>
 
+
 namespace android {
 
 class AudioPolicyManager: public AudioPolicyManagerBase
 {
 
 public:
-    AudioPolicyManager(AudioPolicyClientInterface *clientInterface);
+                AudioPolicyManager(AudioPolicyClientInterface *clientInterface)
+                : AudioPolicyManagerBase(clientInterface) {}
 
-    virtual ~AudioPolicyManager() {}
-    virtual uint32_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
-    virtual status_t setDeviceConnectionState(AudioSystem::audio_devices device,
-                                                          AudioSystem::device_connection_state state,
-                                                          const char *device_address);
-    virtual status_t checkAndSetVolume(int stream, int index, audio_io_handle_t output, uint32_t device, int delayMs = 0, bool force = false);
-#ifdef HAVE_FM_RADIO
-    void resetFm(AudioSystem::audio_devices device);
-#endif
+        virtual ~AudioPolicyManager() {}
 
+        virtual uint32_t getDeviceForStrategy(routing_strategy strategy, bool fromCache = true);
 protected:
-    // true is current platform implements a back microphone
-    virtual bool hasBackMicrophone() const { return false; }
+        // true is current platform implements a back microphone
+        virtual bool hasBackMicrophone() const { return false; }
 #ifdef WITH_A2DP
-    // true is current platform supports suplication of notifications and ringtones over A2DP output
-    virtual bool a2dpUsedForSonification() const { return true; }
+        // true is current platform supports suplication of notifications and ringtones over A2DP output
+        virtual bool a2dpUsedForSonification() const { return true; }
 #endif
+
 };
 };

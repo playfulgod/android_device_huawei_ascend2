@@ -49,14 +49,14 @@ typedef enum {
     TARGET_QSD8250,
     TARGET_MSM7630,
     TARGET_MAX
-} targetType;
+}targetType;
 
 struct target_map {
     const char *targetStr;
     targetType targetEnum;
 };
 
-struct board_property {
+struct board_property{
     targetType target;
     unsigned int previewSizeMask;
 };
@@ -71,15 +71,15 @@ struct board_property {
 #define CAMERA_MIN_CONTRAST 0
 #define CAMERA_MAX_CONTRAST 4
 #define CAMERA_MIN_SHARPNESS 0
-#define CAMERA_MIN_EXPOSURE_COMPENSATION -5
+#define CAMERA_MIN_EXPOSURE_COMPENSATION -2
 #define CAMERA_MAX_SHARPNESS 4
 #define CAMERA_MIN_SATURATION 0
 #define CAMERA_MAX_SATURATION 4
-#define CAMERA_MAX_EXPOSURE_COMPENSATION 5
+#define CAMERA_MAX_EXPOSURE_COMPENSATION 2
 #define CAMERA_DEF_SHARPNESS 2
-#define CAMERA_DEF_CONTRAST 3
+#define CAMERA_DEF_CONTRAST 2
 #define CAMERA_DEF_SATURATION 2
-#define CAMERA_DEF_EXPOSURE_COMPENSATION "0.0"
+#define CAMERA_DEF_EXPOSURE_COMPENSATION "0"
 #define CAMERA_EXPOSURE_COMPENSATION_STEP 1
 
 #define CEILING16(x) (x&0xfffffff0)
@@ -94,12 +94,12 @@ struct board_property {
 
 typedef struct {
 	unsigned int in1_w;
-	unsigned int out1_w;
 	unsigned int in1_h;
+	unsigned int out1_w;
 	unsigned int out1_h;
 	unsigned int in2_w;
-	unsigned int out2_w;
 	unsigned int in2_h;
+	unsigned int out2_w;
 	unsigned int out2_h;
 	uint8_t update_flag; 
 } common_crop_t;
@@ -117,8 +117,8 @@ typedef struct {
 	unsigned short orig_picture_dy;
 	unsigned short ui_thumbnail_height;
 	unsigned short ui_thumbnail_width;
-	unsigned short thumbnail_height;
 	unsigned short thumbnail_width;
+	unsigned short thumbnail_height;
 	unsigned short raw_picture_height;
 	unsigned short raw_picture_width;
 	unsigned short filler7;
@@ -427,6 +427,8 @@ private:
     static const int kRawBufferCount = 1;
     static const int kJpegBufferCount = 1;
 
+    int jpegPadding;
+
     CameraParameters mParameters;
     unsigned int frame_size;
     bool mCameraRunning;
@@ -488,7 +490,6 @@ private:
     sp<PmemPool> mDisplayHeap;
     sp<AshmemPool> mJpegHeap;
     sp<PmemPool> mRawSnapShotPmemHeap;
-    sp<AshmemPool> mRawSnapshotAshmemHeap;
     sp<PmemPool> mPostViewHeap;
 
 
