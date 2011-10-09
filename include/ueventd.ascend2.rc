@@ -9,6 +9,6 @@
 
 /dev/accel                       0660   system       system
 /dev/accel                       0660   system       system
-/dev/akm8973_aot                 0660   system       system
-/dev/akm8973_dev                 0660   system       system
+/dev/akm8975_aot                 0660   system       system
+/dev/akm8975_dev                 0660   system       system
 

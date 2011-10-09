@@ -1,8 +1,8 @@
 LOCAL_PATH := $(call my-dir)
 
-file := $(TARGET_ROOT_OUT)/init.huawei.rc
+file := $(TARGET_ROOT_OUT)/init.ascend2.rc
 ALL_PREBUILT += $(file)
-$(file) : $(LOCAL_PATH)/init.huawei.rc | $(ACP)
+$(file) : $(LOCAL_PATH)/init.ascend2.rc | $(ACP)
 	$(transform-prebuilt-to-target)
 
 # include the non-open-source counterpart to this file

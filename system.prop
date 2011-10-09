@@ -16,6 +16,12 @@ mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 # Allow or deny tethering.
 ro.tether.denied=false
 
+keyguard.no_require_sim=true
+net.ntp.server=time.windows.com
+net.ntp.server2=time.nist.gov
+net.ntp.time=0
+net.ntp.timereference=0
+
 # Disable fs check on boot by default.
 sys.checkfs.fat=false
 

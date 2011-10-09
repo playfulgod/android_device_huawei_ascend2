@@ -1,6 +1,4 @@
 
-LOCAL_PATH:= $(call my-dir)
-
 USE_CAMERA_STUB := true
 
 # inherit from the proprietary version
@@ -13,7 +11,8 @@ TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
 TARGET_BOOTLOADER_BOARD_NAME := M865
 
-BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=huawei
+
+BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=ascend2
 BOARD_KERNEL_BASE := 0x10200000
 BOARD_PAGE_SIZE := 0x00000800
 
@@ -33,7 +32,7 @@ BOARD_USES_QCOM_HARDWARE := true
 BOARD_USES_QCOM_LIBS := true
 BOARD_USES_QCOM_GPS := true
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := M865
-BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
+BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 6225
 
 TARGET_PROVIDES_LIBAUDIO := true
 
@@ -49,7 +48,7 @@ BOARD_HAVE_BLUETOOTH_BCM := true
 WPA_SUPPLICANT_VERSION := VER_0_6_X
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 #BOARD_WLAN_DEVICE := bcm4329
-WIFI_DRIVER_MODULE_PATH := "/system/wifi/dhd.ko"
+WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_STA_PATH := "/system/wifi/firmware.bin"
 WIFI_DRIVER_FW_AP_PATH  := "/system/wifi/firmware_apsta.bin"
 WIFI_DRIVER_MODULE_NAME := "dhd"

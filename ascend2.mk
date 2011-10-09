@@ -1,7 +1,7 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_small.mk)
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_as_supl.mk)
+#$(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 # proprietary side of the device
 $(call inherit-product-if-exists, vendor/huawei/ascend2/ascend2-vendor.mk)
@@ -49,9 +49,10 @@ PRODUCT_PACKAGES += \
 
 DISABLE_DEXPREOPT := false
 
-# Void
+# Vold
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/vold.fstab:system/etc/vold.fstab
+    device/huawei/ascend2/vold/:system/bin/vold 
 
 # bluetooth
 PRODUCT_COPY_FILES += \
@@ -66,8 +67,8 @@ PRODUCT_COPY_FILES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc \
-    device/huawei/ascend2/include/ueventd.qcom.rc:root/ueventd.qcom.rc \
+    device/huawei/ascend2/init.ascend2.rc:root/init.ascend2.rc \
+    device/huawei/ascend2/include/ueventd.ascend2.rc:root/ueventd.ascend2.rc \
     device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle
 
 # Audio
@@ -81,14 +82,15 @@ PRODUCT_COPY_FILES += \
 
 # Wifi firmware
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/prebuild/wifi/dhd.ko:system/wifi/dhd.ko \
+    device/huawei/ascend2/prebuild/wifi/dhd.ko:system/lib/modules/dhd.ko \
     device/huawei/ascend2/prebuild/wifi/firmware.bin:system/wifi/firmware.bin \
     device/huawei/ascend2/prebuild/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
     device/huawei/ascend2/prebuild/wifi/nvram.txt:system/wifi/nvram.txt
 
+
 # DHCP Config
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/wifi/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+    device/huawei/ascend2/include/wifi/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 
 
 
@@ -102,8 +104,7 @@ PRODUCT_COPY_FILES += \
     device/huawei/ascend2/include/media/audio/ui/android_audio.mp3:system/media/audio/ui/android_audio.mp3 \
     device/huawei/ascend2/include/media/bootanimation.zip:system/media/bootanimation.zip \
     device/huawei/ascend2/include/etc/hosts:system/etc/hosts \
-    device/huawei/ascend2/include/app/Swype.apk:system/app/Swype.apk \
-    device/huawei/ascend/include/etc/init.local.rc:system/etc/init.local.rc
+    device/huawei/ascend2/include/etc/init.local.rc:system/etc/init.local.rc
 
 
 
@@ -128,7 +129,7 @@ PRODUCT_LOCALES += mdpi
 
 
 PRODUCT_PROPERTY_OVERRIDES := \
-    wifi.interface=eth0 \
+    wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=90 \
     ro.sf.lcd_density=160 \
     ro.com.android.dataroaming=false \
@@ -148,25 +149,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.hw_allow_g_map=false \
     ro.config.hw_voicerecord=true \
     ro.config.hw_GSensorOptimize=true \
-    ro.opengles.version=131072 \
     ro.config.hw_proximity=true \
-    dalvik.vm.heapsize=32m \
     ro.config.hw_opta=92 \
     ro.config.hw_optb=156 \
     ro.cdma.home.operator.numeric=31016 \
     ro.telephony.default_network=4 \
     ro.cdma.home.operator.alpha=Cricket \
     ro.config.cdma_subscription=1 \
-    ro.cdma.voicemail.number=*99 \
+    ro.cdma.voicemail.number=mine \
     ro.com.google.locationfeatures=1 \
-    ro.denied.tether=false \
 
 # Perfomance tweaks
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
-
-# Don't put dexfiles in /cache
-PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.heapsize=32m \
     dalvik.vm.dexopt-data-only=1
 
 # apps2sd

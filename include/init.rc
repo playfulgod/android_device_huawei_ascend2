@@ -40,7 +40,6 @@ loglevel 3
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /HWUserData 0775 system system
 
     mkdir /cache 0771 system cache
     mkdir /config 0500 root root
@@ -100,8 +99,6 @@ on fs
     mount yaffs2 mtd@system /system ro remount
     mount yaffs2 mtd@userdata /data nosuid nodev
     mount yaffs2 mtd@cache /cache nosuid nodev
-    mount yaffs2 mtd@cust /cust 
-    mount yaffs2 mtd@cust /cust ro remount
     exec /system/bin/iqcopy /system/etc/iq.img.vfat /data/iq.img.vfat
     chown system system /data/iq.img.vfat
     mkdir /data/app_iq_archive
@@ -123,30 +120,7 @@ on post-fs
     mkdir /data/dontpanic
     chown root log /data/dontpanic
     chmod 0750 /data/dontpanic
-    mkdir /data/HWUserData 0777 system system
-    mount yaffs2 mtd@userdata2 /data/HWUserData nosuid nodev    
-    chown system system /data/HWUserData
-    chmod 0777 /data/HWUserData
-    
-    mkdir /data/HWUserData/Pictures 0777 system system
-    chown system system /data/HWUserData/Pictures
-    chmod 0777 /data/HWUserData/Pictures
-    
-    mkdir /data/HWUserData/Videos 0777 system system
-    chown system system /data/HWUserData/Videos
-    chmod 0777 /data/HWUserData/Videos
-    
-    mkdir /data/HWUserData/Recordings 0777 system system
-    chown system system /data/HWUserData/Recordings
-    chmod 0777 /data/HWUserData/Recordings 
-    
-    mkdir /data/HWUserData/ContactIcons 0777 system system
-    chown system system /data/HWUserData/ContactIcons
-    chmod 0777 /data/HWUserData/ContactIcons   
-    mkdir /data/tmp 0777 system system
 
-    chown system system /data/HWUserData/sd.img
-    mount vfat loop@data/HWUserData/sd.img /HWUserData umask=0002,uid=1000,gid=1015,utf8
     
     chmod 0664 /dev/light
     chmod 0664 /dev/proximity
@@ -254,25 +228,7 @@ on post-fs
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 
-on cust
-    mkdir /data/cust
-    custcopy apk_name_need_to_enable.xml /data/cust/apk_name_need_to_enable.xml
-    chmod 0666 /data/cust/apk_name_need_to_enable.xml
     
-    custsymlink nv /data/cust/nv
-    custdircopy /cust fileManager /HWUserData
-    custsymlink wifi /data/cust/wifi
-    custsymlink xml /data/cust/xml
-    custsymlink prop /data/cust/prop
-    custsymlink wallpaper /data/cust/wallpaper
-    custsymlink ons /data/cust/ons
-    custsymlink app /data/cust/app
-    custsymlink lib /data/cust/lib
-    custsymlink media /data/cust/media
-    custsymlink logo /data/cust/logo
-    exec /system/bin/load_oemlogo
-    custsymlink guide /data/cust/guide
-    custsymlink delapp /data/cust/delapp
     mkdir /data/oma 0777
     chmod 0777 /data/oma
 

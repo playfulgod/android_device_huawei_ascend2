@@ -54,7 +54,6 @@ etc/init.qcom.post_boot.sh
 etc/init.qcom.sdio.sh
 etc/bluetooth/BCM4329.hcd
 
-wifi/dhd.ko
 wifi/firmware.bin
 wifi/firmware_apsta.bin
 wifi/nvram.txt
@@ -122,6 +121,7 @@ lib/libcommondefs.so
 lib/libloc_api-rpc-qc.so
 lib/libmmprocess.so
 lib/libhwrpc.so
+lib/libSwypeCore.so
 
 bin/oem_rpc_svc
 bin/vold
