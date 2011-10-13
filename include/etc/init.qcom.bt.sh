@@ -27,7 +27,7 @@
 #
 
 BLUETOOTH_SLEEP_PATH=/proc/bluetooth/sleep/proto
-LOG_TAG="qcom-bluetooth"
+LOG_TAG="bcm-bluetooth"
 LOG_NAME="${0}:"
 
 hciattach_pid=""
@@ -51,9 +51,9 @@ failed ()
 start_hciattach ()
 {
   echo 1 > $BLUETOOTH_SLEEP_PATH
-  /system/bin/hciattach -n $BTS_DEVICE $BTS_TYPE $BTS_BAUD &
+  /system/bin/brcm_patchram_plus -d --enable_hci --enable_lpm --baudrate 3000000 --bd_addr 00:18:82:23:76:1d --patchram /system/etc/bluetooth/BCM4329.hcd /dev/ttyHS0 &
   hciattach_pid=$!
-  logi "start_hciattach: pid = $hciattach_pid"
+  loge "start_hciattach: pid = $hciattach_pid"
 }
 
 kill_hciattach ()
@@ -65,32 +65,13 @@ kill_hciattach ()
   # this shell doesn't exit now -- wait returns for normal exit
 }
 
-# mimic hciattach options parsing -- maybe a waste of effort
-USAGE="hciattach [-n] [-p] [-b] [-t timeout] [-s initial_speed] <tty> <type | id> [speed] [flow|noflow] [bdaddr]"
-
-while getopts "blnpt:s:" f
-do
-  case $f in
-  b | l | n | p)  opt_flags="$opt_flags -$f" ;;
-  t)      timeout=$OPTARG;;
-  s)      initial_speed=$OPTARG;;
-  \?)     echo $USAGE; exit 1;;
-  esac
-done
-shift $(($OPTIND-1))
-
-# Note that "hci_qcomm_init -e" prints expressions to set the shell variables
-# BTS_DEVICE, BTS_TYPE, BTS_BAUD, and BTS_ADDRESS.
-
-eval $(/system/bin/hci_qcomm_init -e && echo "exit_code_hci_qcomm_init=0" || echo "exit_code_hci_qcomm_init=1")
-
-case $exit_code_hci_qcomm_init in
-  0) logi "Bluetooth QSoC firmware download succeeded, $BTS_DEVICE $BTS_TYPE $BTS_BAUD $BTS_ADDRESS";;
-  *) failed "Bluetooth QSoC firmware download failed" $exit_code_hci_qcomm_init;;
-esac
 
 # init does SIGTERM on ctl.stop for service
+# guhaifeng mod for test 20101225 begin
+# DTS2011050902389 xuhui 20110507 begin
 trap "kill_hciattach" TERM INT
+# DTS2011050902389 xuhui 20110507 end
+# guhaifeng mod for test 20101225 end
 
 start_hciattach
 

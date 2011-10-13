@@ -1,4 +1,4 @@
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_small.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
 #$(call inherit-product, device/common/gps/gps_us_supl.mk)
@@ -37,39 +37,36 @@ PRODUCT_PACKAGES += \
     Gallery3d \
     SpareParts \
     Term \
-    libaudio \
-    libril \
     libcamera \
     libOmxCore \
     libOmxVidEnc \
     dexpreopt \
     gps.M865 \
-    copybit.M865 \
-    lights.M865
+
 
 DISABLE_DEXPREOPT := false
 
 # Vold
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/vold.fstab:system/etc/vold.fstab
+    device/huawei/ascend2/vold.fstab:system/etc/vold.fstab \
     device/huawei/ascend2/vold/:system/bin/vold 
 
 # bluetooth
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
+    device/huawei/ascend2/include/etc/init.qcom.bt.sh:system/etc/init.qcom.bt.sh
 
 # apns-conf.xml
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/apns-conf.xml:system/etc/apns-conf.xml
+    device/huawei/ascend2/include/etc/apns-conf.xml:system/etc/apns-conf.xml
 
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
+    device/huawei/ascend2/include/etc/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
 
-# Init
+# Root init
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/init.ascend2.rc:root/init.ascend2.rc \
-    device/huawei/ascend2/include/ueventd.ascend2.rc:root/ueventd.ascend2.rc \
-    device/huawei/ascend2/include/initlogo.rle:root/initlogo.rle
+    device/huawei/ascend2/init.huawei.rc:root/init.huawei.rc \
+    device/huawei/ascend2/include/ueventd.rc:root/ueventd.rc 
+
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -78,19 +75,27 @@ PRODUCT_COPY_FILES += \
 
 #Media profile
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/media_profiles.xml:system/etc/media_profiles.xml
+    device/huawei/ascend2/include/etc/media_profiles.xml:system/etc/media_profiles.xml
 
 # Wifi firmware
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/prebuild/wifi/dhd.ko:system/lib/modules/dhd.ko \
-    device/huawei/ascend2/prebuild/wifi/firmware.bin:system/wifi/firmware.bin \
-    device/huawei/ascend2/prebuild/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
-    device/huawei/ascend2/prebuild/wifi/nvram.txt:system/wifi/nvram.txt
+    device/huawei/ascend2/prebuilt/wifi/dhd.ko:system/lib/modules/dhd.ko \
+    device/huawei/ascend2/prebuilt/wifi/firmware.bin:system/wifi/firmware.bin \
+    device/huawei/ascend2/prebuilt/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
+    device/huawei/ascend2/prebuilt/wifi/nvram.txt:system/wifi/nvram.txt \
+    device/huawei/ascend2/prebuilt/wifi/bcm_loadecho.sh:system/wifi/bcm_loadecho.sh \
+    device/huawei/ascend2/prebuilt/wifi/bcm_loadipf.sh:system/wifi/bcm_loadipf.sh \
+    device/huawei/ascend2/prebuilt/wifi/connectap.sh:system/wifi/connectap.sh \
+    device/huawei/ascend2/prebuilt/wifi/iwconfig:system/wifi/iwconfig \
+    device/huawei/ascend2/prebuilt/wifi/iwlist:system/wifi/iwlist \
+    device/huawei/ascend2/prebuilt/wifi/iwpriv:system/wifi/iwpriv \
+    device/huawei/ascend2/prebuilt/wifi/nvram.txt:system/wifi/nvram.txt \
+    device/huawei/ascend2/prebuilt/wifi/udp_server:system/wifi/udp_server 
 
 
 # DHCP Config
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/include/wifi/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
+    device/huawei/ascend2/prebuilt/wifi/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
 
 
 
@@ -129,7 +134,7 @@ PRODUCT_LOCALES += mdpi
 
 
 PRODUCT_PROPERTY_OVERRIDES := \
-    wifi.interface=wlan0 \
+    wifi.interface=eth0 \
     wifi.supplicant_scan_interval=90 \
     ro.sf.lcd_density=160 \
     ro.com.android.dataroaming=false \
@@ -152,9 +157,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.hw_proximity=true \
     ro.config.hw_opta=92 \
     ro.config.hw_optb=156 \
-    ro.cdma.home.operator.numeric=31016 \
     ro.telephony.default_network=4 \
+    ro.com.google.clientidbase=android-cricket-us
     ro.cdma.home.operator.alpha=Cricket \
+    ro.cdma.home.operator.numeric=31016 \
     ro.config.cdma_subscription=1 \
     ro.cdma.voicemail.number=mine \
     ro.com.google.locationfeatures=1 \

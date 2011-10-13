@@ -1,13 +1,41 @@
 #
 # system.prop for m865
 #
-#
-# system.prop for ascend
-#
 
 rild.libpath=/system/lib/libril-qc-1.so
 rild.libargs=-d /dev/smd0
+
+persist.rild.nitz_plmn=
+persist.rild.nitz_long_ons_0=
+persist.rild.nitz_long_ons_1=
+persist.rild.nitz_long_ons_2=
+persist.rild.nitz_long_ons_3=
+persist.rild.nitz_short_ons_0=
+persist.rild.nitz_short_ons_1=
+persist.rild.nitz_short_ons_2=
+persist.rild.nitz_short_ons_3=
+
 DEVICE_PROVISIONED=1
+
+media.stagefright.enable-player=true
+media.stagefright.enable-http=true
+media.stagefright.enable-rtsp=true
+ro.config.userAgentCustomize=true
+ro.config.hw_addsettingsdbex=1
+ro.config.hw_opta=92
+ro.config.hw_optb=156
+ro.config.fm_type=libbcmfm_if
+ro.config.hw_always_allow_mms=true
+ro.config.KeyPassToUser=true
+ro.config.hwdrm=true
+ro.config.hw_proximitySensor=true
+ro.config.xtra_support=true
+ro.config.hw_ascend_ringtone=true
+hw_internal_sd=true
+ro.telephony.call_ring.multiple=false
+ro.config.ipcall=true
+ro.config.hw_reject_message=true
+ro.config.hw_support_ipcall=true
 
 # The interfaces to get DNS data from when using mobile data
 # Comma-separated
@@ -16,7 +44,14 @@ mobiledata.interfaces=rmnet0,rmnet1,rmnet2
 # Allow or deny tethering.
 ro.tether.denied=false
 
+
+ro.config.hw_voicerecord=true
+ro.config.hw_GSensorOptimize=true
+ro.config.hw_popupsaveoropen=true
+ro.config.hw_proximity=true
+
 keyguard.no_require_sim=true
+
 net.ntp.server=time.windows.com
 net.ntp.server2=time.nist.gov
 net.ntp.time=0
