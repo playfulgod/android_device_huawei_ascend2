@@ -104,15 +104,27 @@ service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
     group qcom_oncrpc bluetooth net_bt_admin
     disabled
     oneshot
+    
+# Permission for ril
+    mkdir /data/misc/radio 0774 radio radio
+    mkdir /data/local
+    chmod 0777 /data/local
+    chown radio shell /data/local
+    mkdir /data/local/tmp
+    chmod 0777 /data/local/tmp
+    chown radio shell /data/local/tmp
 
-service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
-    user root
+# For qmuxd socket
+    mkdir /data/radio 0770 radio radio
+    chown radio radio 0770 /data/radio
+
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     group wifi inet
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd /system/bin/dhcpcd -BKL wlan0
+service dhcpcd /system/bin/dhcpcd -BKL eth0
     disabled
     oneshot
 

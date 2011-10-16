@@ -121,7 +121,6 @@ lib/libcommondefs.so
 lib/libloc_api-rpc-qc.so
 lib/libmmprocess.so
 lib/libhwrpc.so
-lib/libSwypeCore.so
 
 bin/oem_rpc_svc
 bin/vold
@@ -130,10 +129,31 @@ bin/wpa_supplicant
 bin/wl
 bin/port-bridge
 bin/brcm_patchram_plus
-bin/qmuxd
 bin/akmd8962
 bin/akmd8975
 bin/compassd
+
+bin/qmuxd 
+bin/rild 
+lib/libcm.so 
+lib/libdiag.so
+lib/libdll.so 
+lib/libdsm.so 
+lib/libdss.so 
+lib/libgsdi_exp.so 
+lib/libgstk_exp.so 
+lib/libmmgsdilib.so 
+lib/libnv.so 
+lib/liboncrpc.so 
+lib/libpbmlib.so 
+lib/libqmi.so 
+lib/libqueue.so 
+lib/libril.so 
+lib/libril.so 
+lib/libril-qc-1.so 
+lib/libril-qcril-hook-oem.so 
+lib/libwms.so 
+lib/libwmsts.so
 
 lib/hw/sensors.default.so
 lib/hw/lights.msm7k.so
@@ -171,11 +191,6 @@ done
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-PRODUCT_COPY_FILES += \\
-    vendor/huawei/ascend2/proprietary/lib/libril-qc-1.so:system/lib/libril-qc-1.so \\
-    vendor/huawei/ascend2/proprietary/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so 
-
 
 PRODUCT_COPY_FILES += \\
     vendor/huawei/ascend2/proprietary/lib/egl/libEGL_adreno200.so:system/lib/egl/libEGL_adreno200.so \\
@@ -278,15 +293,29 @@ PRODUCT_COPY_FILES += \\
     vendor/huawei/ascend2/proprietary/bin/brcm_patchram_plus:system/bin/brcm_patchram_plus \\
     vendor/huawei/ascend2/proprietary/etc/bluetooth/BCM4329.hcd:system/etc/bluetooth/BCM4329.hcd 
 
-# ril
+# RIL specific
 PRODUCT_COPY_FILES += \\
-    vendor/huawei/ascend2/proprietary/lib/libreference-ril.so:/system/lib/libreference-ril.so \\
-    vendor/huawei/ascend2/proprietary/lib/libril.so:/system/lib/libril.so 
-
-# Swype
-PRODUCT_COPY_FILE += \\
-    vendor/huawei/ascend2/proprietary/lib/libSwypeCore.so:system/lib/libSwypeCore.so
-
+    vendor/huawei/ascend2/proprietary/bin/qmuxd:system/bin/qmuxd \\
+    vendor/huawei/ascend2/proprietary/bin/rild:system/bin/rild \\
+    vendor/huawei/ascend2/proprietary/lib/libcm.so:system/lib/libcm.so \\
+    vendor/huawei/ascend2/proprietary/lib/libdiag.so:system/lib/libdiag.so \\
+    vendor/huawei/ascend2/proprietary/lib/libdll.so:system/lib/libdll.so \\
+    vendor/huawei/ascend2/proprietary/lib/libdsm.so:system/lib/libdsm.so \\
+    vendor/huawei/ascend2/proprietary/lib/libdss.so:system/lib/libdss.so \\
+    vendor/huawei/ascend2/proprietary/lib/libgsdi_exp.so:system/lib/libgsdi_exp.so \\
+    vendor/huawei/ascend2/proprietary/lib/libgstk_exp.so:system/lib/libgstk_exp.so \\
+    vendor/huawei/ascend2/proprietary/lib/libmmgsdilib.so:system/lib/libmmgsdilib.so \\
+    vendor/huawei/ascend2/proprietary/lib/libnv.so:system/lib/libnv.so \\
+    vendor/huawei/ascend2/proprietary/lib/liboncrpc.so:system/lib/liboncrpc.so \\
+    vendor/huawei/ascend2/proprietary/lib/libpbmlib.so:system/lib/libpbmlib.so \\
+    vendor/huawei/ascend2/proprietary/lib/libqmi.so:system/lib/libqmi.so \\
+    vendor/huawei/ascend2/proprietary/lib/libqueue.so:system/lib/libqueue.so \\
+    vendor/huawei/ascend2/proprietary/lib/libril.so:system/lib/libril.so \\
+    vendor/huawei/ascend2/proprietary/lib/libril.so:obj/lib/libril.so \\
+    vendor/huawei/ascend2/proprietary/lib/libril-qc-1.so:system/lib/libril-qc-1.so \\
+    vendor/huawei/ascend2/proprietary/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \\
+    vendor/huawei/ascend2/proprietary/lib/libwms.so:system/lib/libwms.so \\
+    vendor/huawei/ascend2/proprietary/lib/libwmsts.so:system/lib/libwmsts.so
 
 EOF
 

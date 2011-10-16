@@ -49,7 +49,7 @@ DISABLE_DEXPREOPT := false
 # Vold
 PRODUCT_COPY_FILES += \
     device/huawei/ascend2/vold.fstab:system/etc/vold.fstab \
-    device/huawei/ascend2/vold/:system/bin/vold 
+    device/huawei/ascend2/include/bin/vold/:system/bin/vold 
 
 # bluetooth
 PRODUCT_COPY_FILES += \
@@ -127,6 +127,12 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.touchscreen.multitouch.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.xml \
     frameworks/base/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
 
+# HW
+PRODUCT_COPY_FILES += \
+    device/huawei/ascend2/include/lib/hw/sensors.default.so:system/lib/hw/sensors.default.so \
+    device/huawei/ascend2/include/lib/hw/lights.msm7k.so:system/lib/hw/lights.msm7k.so \
+    device/huawei/ascend2/include/lib/hw/copybit.msm7k.so:system/lib/hw/copybit.msm7k.so \
+    device/huawei/ascend2/include/lib/hw/gralloc.msm7k.so:system/lib/hw/gralloc.msm7k.so 
 
 # M865 uses mid-density
 PRODUCT_LOCALES += mdpi
@@ -139,10 +145,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.sf.lcd_density=160 \
     ro.com.android.dataroaming=false \
     ro.config.play.bootsound=1
-
-
-
-PRODUCT_PROPERTY_OVERRIDES += \
     ro.config.hw_virtualsdcard=true \
     ro.config.srs.equalizer=true \
     ro.config.srs.default.type=1 \
