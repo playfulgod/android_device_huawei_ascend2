@@ -1,22 +1,3 @@
-# Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions are met:
-#     * Redistributions of source code must retain the above copyright
-#       notice, this list of conditions and the following disclaimer.
-#     * Redistributions in binary form must reproduce the above copyright
-#       notice, this list of conditions and the following disclaimer in the
-#       documentation and/or other materials provided with the distribution.
-#     * Neither the name of Code Aurora nor
-#       the names of its contributors may be used to endorse or promote
-#       products derived from this software without specific prior written
-#       permission.
-#
-# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-#Based on huawei init
-
 service dhcp-service /system/bin/netcfg eth0 dhcp
         oneshot
 
@@ -118,13 +99,13 @@ service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
     mkdir /data/radio 0770 radio radio
     chown radio radio 0770 /data/radio
 
-service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf -dd
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf 
     group wifi inet
-    socket wpa_wlan0 dgram 660 wifi wifi
+    socket wpa_eth0 dgram 660 wifi wifi
     disabled
     oneshot
 
-service dhcpcd /system/bin/dhcpcd -BKL eth0
+service dhcpcd /system/bin/dhcpcd -ABKL eth0
     disabled
     oneshot
 

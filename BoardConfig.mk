@@ -12,7 +12,6 @@ TARGET_BOARD_PLATFORM := msm7k
 TARGET_ARCH_VARIANT := armv6-vfp
 TARGET_CPU_ABI := armeabi-v6l
 TARGET_CPU_ABI2 := armeabi
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_BOOTLOADER_BOARD_NAME := M865
 
 
@@ -36,7 +35,7 @@ JS_ENGINE := v8
 # Graphics
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 TARGET_LIBAGL_USE_GRALLOC_COPYBITS := true
-BOARD_NO_RGBX_8888 := true
+#BOARD_NO_RGBX_8888 := true
 
 # OpenGL drivers config file path
 BOARD_EGL_CFG := device/huawei/ascend2/include/egl.cfg
@@ -65,7 +64,7 @@ WPA_SUPPLICANT_VERSION := VER_0_6_X
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
 BOARD_WLAN_DEVICE := bcm4329
 WIFI_DRIVER_MODULE_NAME := "dhd"
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_PATH := "/system/wifi/dhd.ko"
 WIFI_DRIVER_FW_STA_PATH := "/system/wifi/firmware.bin"
 WIFI_DRIVER_FW_AP_PATH  := "/system/wifi/firmware_apsta.bin"
 WIFI_DRIVER_MODULE_ARG  := "firmware_path=/system/wifi/firmware.bin nvram_path=/system/wifi/nvram.txt"
