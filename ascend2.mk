@@ -79,7 +79,7 @@ PRODUCT_COPY_FILES += \
 
 # Wifi firmware
 PRODUCT_COPY_FILES += \
-    device/huawei/ascend2/prebuilt/wifi/dhd.ko:system/lib/modules/dhd.ko \
+    device/huawei/ascend2/prebuilt/wifi/dhd.ko:system/wifi/dhd.ko \
     device/huawei/ascend2/prebuilt/wifi/firmware.bin:system/wifi/firmware.bin \
     device/huawei/ascend2/prebuilt/wifi/firmware_apsta.bin:system/wifi/firmware_apsta.bin \
     device/huawei/ascend2/prebuilt/wifi/nvram.txt:system/wifi/nvram.txt \
